@@ -63,11 +63,7 @@ module Zoom
 
     private
 
-    attr_reader :store_key
-
     def extract_params(config)
-      extract_store_key(config)
-
       config.each do |k, v|
         if ::Zoom::TokenStore::PARAMS.include?(k.to_sym)
           token_store.public_send("#{k}=", v)
@@ -77,15 +73,8 @@ module Zoom
       end
     end
 
-    def extract_store_key(config)
-      @store_key = config.delete(:store_key)&.call || begin
-        require 'securerandom'
-        SecureRandom.uuid
-      end
-    end
-
     def token_store
-      @token_store ||= ::Zoom::TokenStore.build(store_key, Zoom.configuration&.token_store)
+      @token_store ||= ::Zoom::TokenStore.build(Zoom.configuration&.token_store)
     end
   end
 end

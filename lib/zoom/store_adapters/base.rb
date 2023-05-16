@@ -3,8 +3,7 @@
 module Zoom
   module StoreAdapters
     class Base
-      def initialize(key, config)
-        @key = key
+      def initialize(config)
         @config = config
       end
 

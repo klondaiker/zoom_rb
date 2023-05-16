@@ -43,7 +43,13 @@ module Zoom
       end
 
       def key(name)
-        "zoom_rb:#{key}:#{name}"
+        "zoom_rb:#{store_key}:#{name}"
+      end
+
+      def id
+        @id ||= config[:key]&.call || begin
+          store_key
+        end
       end
     end
   end

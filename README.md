@@ -73,14 +73,12 @@ end
 
 ```ruby
 Zoom.configure do |c|
-  # ...
-
   c.token_store = :redis, {
     host: "127.0.0.1",
     port: "6379",
-    db: "0"
+    db: "0",
+    key: -> { SecureRandom.uuid }
   }
-  c.store_key = -> { SecureRandom.uuid }
 end
 
 Zoom::Client::OAuth.new(
@@ -89,9 +87,9 @@ Zoom::Client::OAuth.new(
   token_store: [:redis, {
     host: "127.0.0.1",
     port: "6379",
-    db: "0"
+    db: "0",
+    key: -> { account.id }
   }],
-  store_key: -> { account.id }
 )
 ```
 
