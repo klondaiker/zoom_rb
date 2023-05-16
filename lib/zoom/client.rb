@@ -78,7 +78,7 @@ module Zoom
     end
 
     def extract_store_key(config)
-      @store_key = config.delete(:store_key) || begin
+      @store_key = config.delete(:store_key)&.call || begin
         require 'securerandom'
         SecureRandom.uuid
       end

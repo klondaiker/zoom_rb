@@ -80,7 +80,7 @@ Zoom.configure do |c|
     port: "6379",
     db: "0"
   }
-  c.store_key = account.id # optional, default: generate uuid
+  c.store_key = -> { SecureRandom.uuid }
 end
 
 Zoom::Client::OAuth.new(
@@ -91,7 +91,7 @@ Zoom::Client::OAuth.new(
     port: "6379",
     db: "0"
   }],
-  store_key: account.id
+  store_key: -> { account.id }
 )
 ```
 
