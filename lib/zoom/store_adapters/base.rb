@@ -7,36 +7,14 @@ module Zoom
         @config = config
       end
 
-      def access_token
-        raise NotImplementedError
-      end
+      ::Zoom::TokenStore::PARAMS.each do |method|
+        define_method method do
+          raise NotImplementedError
+        end
 
-      def refresh_token
-        raise NotImplementedError
-      end
-
-      def expires_in
-        raise NotImplementedError
-      end
-
-      def expires_at
-        raise NotImplementedError
-      end
-
-      def access_token=(_value)
-        raise NotImplementedError
-      end
-
-      def refresh_token=(_value)
-        raise NotImplementedError
-      end
-
-      def expires_in=(_value)
-        raise NotImplementedError
-      end
-
-      def expires_at=(_value)
-        raise NotImplementedError
+        define_method "#{method}=" do |data|
+          raise NotImplementedError
+        end
       end
 
       private

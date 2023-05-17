@@ -7,10 +7,8 @@ module Zoom
         define_method method do
           storage.get key(method)
         end
-      end
 
-      ::Zoom::TokenStore::PARAMS.map { |p| "#{p}=" }.each do |method|
-        define_method method do |data|
+        define_method "#{method}=" do |data|
           storage.set key(method), data
         end
       end
@@ -22,7 +20,7 @@ module Zoom
       end
 
       def build_storage
-        require 'redis'
+        require_redis
 
         Redis.new(url: redis_url)
       rescue LoadError => e
@@ -50,6 +48,10 @@ module Zoom
         @id ||= config[:key]&.call || begin
           store_key
         end
+      end
+
+      def require_redis
+        require 'redis'
       end
     end
   end
