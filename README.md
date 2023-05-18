@@ -76,9 +76,6 @@ Memory adapter is used **by default**.
 
 Here is a default configuration for Redis:
 
-(Key is optional, needed to create a Redis key that stores the token \
-example: zoom_rb:123:access_token, default: generate uuid)
-
 ```ruby
 Zoom.configure do |c|
   c.token_store = :redis, {
@@ -100,6 +97,9 @@ Zoom::Client::OAuth.new(
   }],
 )
 ```
+
+Key is optional, needed to create a Redis key that stores the token \
+example: zoom_rb:123:access_token, default: generate uuid
 
 ## Contributing
 
