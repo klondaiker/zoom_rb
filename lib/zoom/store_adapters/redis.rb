@@ -20,7 +20,7 @@ module Zoom
       end
 
       def build_storage
-        require_redis
+        require 'redis'
 
         Redis.new(url: redis_url)
       rescue LoadError => e
@@ -41,17 +41,14 @@ module Zoom
       end
 
       def key(name)
-        "zoom_rb:#{store_key}:#{name}"
+        "zoom_rb:#{id}:#{name}"
       end
 
       def id
         @id ||= config[:key]&.call || begin
-          store_key
+          require 'securerandom'
+          SecureRandom.uuid
         end
-      end
-
-      def require_redis
-        require 'redis'
       end
     end
   end
