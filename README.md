@@ -71,6 +71,14 @@ end
 
 ## Token Store
 
+Currently supported stores are `:redis` and `:memory`. \
+Memory adapter is used **by default**.
+
+Here is a default configuration for Redis:
+
+(Key is optional, needed to create a Redis key that stores the token \
+example: zoom_rb:123:access_token, default: generate uuid)
+
 ```ruby
 Zoom.configure do |c|
   c.token_store = :redis, {
@@ -88,7 +96,7 @@ Zoom::Client::OAuth.new(
     host: '127.0.0.1',
     port: '6379',
     db: '0',
-    key: -> { account.id }
+    key: -> { SecureRandom.uuid }
   }],
 )
 ```
