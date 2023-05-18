@@ -98,8 +98,8 @@ Zoom::Client::OAuth.new(
 )
 ```
 
-Key is optional, needed to create a Redis key that stores the token \
-example: zoom_rb:123:access_token, default: generate uuid
+`key:` is optional, needed to create a Redis key that stores the token \
+example: `zoom_rb:123:access_token`, default: generate `SecureRandom.uuid`
 
 ## Contributing
 
