@@ -98,6 +98,10 @@ Zoom::Client::OAuth.new(
 )
 ```
 
+`key:` is optional, needed to create a Redis key that stores the token \
+example: `zoom_rb:123:access_token`, default: generate `SecureRandom.uuid`
+
+
 ## Auto refresh token
 
 You can enable automatic call auth when the token has expired
@@ -112,9 +116,6 @@ Zoom::Client::OAuth.new(
   auto_refresh_token: true
 )
 ```
-
-`key:` is optional, needed to create a Redis key that stores the token \
-example: `zoom_rb:123:access_token`, default: generate `SecureRandom.uuid`
 
 ## Contributing
 
