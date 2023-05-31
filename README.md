@@ -98,6 +98,16 @@ Zoom::Client::OAuth.new(
 )
 ```
 
+## Auto refresh token
+
+You can enable automatic call auth when the token has expired
+
+```ruby
+Zoom.configure do |c|
+  c.auto_refresh_token = true
+end
+```
+
 `key:` is optional, needed to create a Redis key that stores the token \
 example: `zoom_rb:123:access_token`, default: generate `SecureRandom.uuid`
 
