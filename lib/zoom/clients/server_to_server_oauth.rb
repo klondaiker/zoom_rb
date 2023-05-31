@@ -4,7 +4,7 @@ module Zoom
   class Client
     class ServerToServerOAuth < Zoom::Client
       def initialize(config)
-        Zoom::Params.new(config).permit(%i[access_token account_id client_id client_secret timeout])
+        Zoom::Params.new(config).permit(%i[access_token account_id client_id client_secret timeout auto_refresh_token])
         Zoom::Params.new(config).require_one_of(%i[access_token account_id])
 
         extract_params(config)

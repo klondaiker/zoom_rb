@@ -57,11 +57,15 @@ module Zoom
 
     ::Zoom::TokenStore::PARAMS.each do |method|
       define_method method do
+        auth if need_refresh?
+
         token_store.public_send(method)
       end
     end
 
     private
+
+    attr_reader :auto_refresh_token
 
     def extract_params(config)
       config.each do |k, v|
@@ -75,6 +79,14 @@ module Zoom
 
     def token_store
       @token_store ||= ::Zoom::TokenStore.build(Zoom.configuration&.token_store)
+    end
+
+    def need_refresh?
+      return false unless auto_refresh_token
+      return true if token_store.access_token.nil?
+      return false if token_store.expires_at.nil?
+
+      token_store.expires_at < Time.now
     end
   end
 end

@@ -183,6 +183,32 @@ describe Zoom::Client do
           expect(client.oauth_request_headers['Authorization']).to eq("Basic eXl5Onl5eQ==")
         end
       end
+
+      context 'when auto refresh token' do
+        let(:client) { Zoom::Client::ServerToServerOAuth.new(account_id: 'xxx', auto_refresh_token: true) }
+
+        it 'has no token' do
+          expect(client).to receive(:auth)
+
+          client.access_token
+        end
+
+        it 'has expired token' do
+          allow(client.send(:token_store)).to receive(:access_token).and_return('xxx')
+          allow(client.send(:token_store)).to receive(:expires_at).and_return(Time.now - 3600)
+
+          expect(client).to receive(:auth)
+          client.access_token
+        end
+
+        it 'has active token' do
+          allow(client.send(:token_store)).to receive(:access_token).and_return('xxx')
+          allow(client.send(:token_store)).to receive(:expires_at).and_return(Time.now + 3600)
+
+          expect(client).not_to receive(:auth)
+          client.access_token
+        end
+      end
     end
   end
 end

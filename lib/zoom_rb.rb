@@ -48,13 +48,14 @@ module Zoom
   end
 
   class Configuration
-    attr_accessor :api_key, :api_secret, :timeout, :access_token, :token_store
+    attr_accessor :api_key, :api_secret, :timeout, :access_token, :token_store, :auto_refresh_token
 
     def initialize
       @api_key = @api_secret = 'xxx'
       @access_token = nil
       @timeout = 15
       @token_store = :memory, {}
+      @auto_refresh_token = false
     end
   end
 end
