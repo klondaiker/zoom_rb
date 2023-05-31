@@ -106,6 +106,11 @@ You can enable automatic call auth when the token has expired
 Zoom.configure do |c|
   c.auto_refresh_token = true
 end
+
+Zoom::Client::OAuth.new(
+  # ...
+  auto_refresh_token: true
+)
 ```
 
 `key:` is optional, needed to create a Redis key that stores the token \
