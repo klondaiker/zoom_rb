@@ -20,11 +20,9 @@ module Zoom
       end
 
       def build_storage
-        require 'redis'
-
-        Redis.new(url: redis_url)
-      rescue LoadError => e
-        msg = 'Could not load the \'redis\' gem, please add it to your gemfile or ' \
+        ::Redis.new(url: redis_url)
+      rescue NameError => e
+        msg = 'Could not load the \'redis\' gem, please add it to your gemfile and require \'redis\' or ' \
               'configure a different adapter '
         raise e.class, msg, e.backtrace
       end

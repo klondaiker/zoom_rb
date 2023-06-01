@@ -77,24 +77,15 @@ Memory adapter is used **by default**.
 Here is a default configuration for Redis:
 
 ```ruby
-Zoom.configure do |c|
-  c.token_store = :redis, {
-    host: '127.0.0.1',
-    port: '6379',
-    db: '0',
-    key: -> { SecureRandom.uuid }
-  }
-end
-
 Zoom::Client::OAuth.new(
   access_token: auth['access_token'], 
   timeout: 15, 
-  token_store: [:redis, {
+  token_store_config: [:redis, {
     host: '127.0.0.1',
     port: '6379',
     db: '0',
     key: -> { SecureRandom.uuid }
-  }],
+  }]
 )
 ```
 
@@ -105,12 +96,7 @@ example: `zoom_rb:123:access_token`, default: generate `SecureRandom.uuid`
 ## Auto refresh token
 
 You can enable automatic call auth when the token has expired
-
 ```ruby
-Zoom.configure do |c|
-  c.auto_refresh_token = true
-end
-
 Zoom::Client::OAuth.new(
   # ...
   auto_refresh_token: true

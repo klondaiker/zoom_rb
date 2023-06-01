@@ -2,24 +2,6 @@
 
 require 'spec_helper'
 
-class FakeRedisStorage
-  def initialize
-    @hash = {}
-  end
-
-  def set(key, value)
-    hash[key] = value
-  end
-
-  def get(key)
-    hash[key]
-  end
-
-  private
-
-  attr_reader :hash
-end
-
 describe Zoom::TokenStore do
   subject { described_class.build(config) }
 

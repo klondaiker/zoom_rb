@@ -65,7 +65,7 @@ module Zoom
 
     private
 
-    attr_reader :auto_refresh_token
+    attr_reader :auto_refresh_token, :token_store_config
 
     def extract_params(config)
       config.each do |k, v|
@@ -78,7 +78,7 @@ module Zoom
     end
 
     def token_store
-      @token_store ||= ::Zoom::TokenStore.build(Zoom.configuration&.token_store)
+      @token_store ||= ::Zoom::TokenStore.build(token_store_config)
     end
 
     def need_refresh?
