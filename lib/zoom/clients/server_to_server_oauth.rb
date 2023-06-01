@@ -32,7 +32,7 @@ module Zoom
         if response.is_a?(Hash) && !response.key?(:error)
           token_store.access_token = response['access_token']
           token_store.expires_in = response['expires_in']
-          token_store.expires_at = expires_in ? (Time.now + expires_in).to_i : nil
+          token_store.expires_at = token_store.expires_in ? (Time.now + token_store.expires_in).to_i : nil
         end
       end
     end
