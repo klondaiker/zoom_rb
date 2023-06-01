@@ -43,9 +43,17 @@ module Zoom
       end
 
       def id
-        @id ||= config[:key]&.call || begin
+        @id ||= build_id
+      end
+
+      def build_id
+        if config[:key].nil?
           require 'securerandom'
           SecureRandom.uuid
+        elsif config[:key].respond_to?(:call)
+          config[:key].call
+        else
+          config[:key]
         end
       end
     end
