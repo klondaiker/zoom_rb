@@ -26,22 +26,11 @@ module Zoom
       end
 
       def build_storage
-        ::Redis.new(url: redis_url)
+        ::Redis.new(config)
       rescue NameError => e
         msg = 'Could not load the \'redis\' gem, please add it to your gemfile and require \'redis\' or ' \
               'configure a different adapter '
         raise e.class, msg, e.backtrace
-      end
-
-      def redis_url
-        if config[:url] && (config[:host] || config[:port] || config[:db])
-          raise ArgumentError, 'redis_url cannot be passed along with host, port or db options'
-        end
-
-        return URI.join(config[:url], config[:db].to_s).to_s if config[:url]
-
-        base_url = ENV['REDIS_URL'] || "redis://#{config[:host]}:#{config[:port]}"
-        URI.join(base_url, config[:db].to_s).to_s
       end
 
       def key(name)
