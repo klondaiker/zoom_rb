@@ -196,7 +196,7 @@ describe Zoom::Client do
 
         it 'has expired token' do
           allow(token_store).to receive(:access_token).and_return('xxx')
-          allow(token_store).to receive(:expires_at).and_return(Time.now - 3600)
+          allow(token_store).to receive(:expires_at).and_return((Time.now - 3600).to_i)
 
           expect(client).to receive(:auth)
           client.access_token
@@ -204,7 +204,7 @@ describe Zoom::Client do
 
         it 'has active token' do
           allow(token_store).to receive(:access_token).and_return('xxx')
-          allow(token_store).to receive(:expires_at).and_return(Time.now + 3600)
+          allow(token_store).to receive(:expires_at).and_return((Time.now + 3600).to_i)
 
           expect(client).not_to receive(:auth)
           client.access_token

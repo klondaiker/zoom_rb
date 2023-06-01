@@ -5,7 +5,13 @@ module Zoom
     class Redis < Base
       ::Zoom::TokenStore::PARAMS.each do |method|
         define_method method do
-          storage.get key(method)
+          val = storage.get key(method)
+
+          if %i[expires_in expires_at].include?(method)
+            val.to_i
+          else
+            val
+          end
         end
 
         define_method "#{method}=" do |data|

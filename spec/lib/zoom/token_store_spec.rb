@@ -8,7 +8,7 @@ describe Zoom::TokenStore do
   let(:access_token) { 'xxx' }
   let(:refresh_token) { 'xxx' }
   let(:expires_in) { 3599 }
-  let(:expires_at) { Time.now + expires_in }
+  let(:expires_at) { (Time.now + expires_in).to_i }
 
   shared_examples 'sets and gets token values' do
     it do
