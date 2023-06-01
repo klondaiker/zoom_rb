@@ -38,10 +38,10 @@ module Zoom
           raise ArgumentError, 'redis_url cannot be passed along with host, port or db options'
         end
 
-        return URI.join(config[:url], config[:db]).to_s if config[:url]
+        return URI.join(config[:url], config[:db].to_s).to_s if config[:url]
 
         base_url = ENV['REDIS_URL'] || "redis://#{config[:host]}:#{config[:port]}"
-        URI.join(base_url, config[:db]).to_s
+        URI.join(base_url, config[:db].to_s).to_s
       end
 
       def key(name)
