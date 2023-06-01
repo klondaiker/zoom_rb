@@ -11,10 +11,13 @@ module Zoom
       # Returns (access_token, refresh_token)
       #
       def initialize(config)
-        Zoom::Params.new(config).permit( %i[auth_token auth_code redirect_uri access_token refresh_token timeout code_verifier auto_refresh_token])
+        Zoom::Params.new(config).permit(
+          %i[auth_token auth_code redirect_uri access_token refresh_token timeout code_verifier
+              token_store auto_refresh_token]
+        )
         Zoom::Params.new(config).require_one_of(%i[access_token refresh_token auth_code])
         if (config.keys & [:auth_code, :redirect_uri]).any?
-          Zoom::Params.new(config).require( %i[auth_code redirect_uri])
+          Zoom::Params.new(config).require(%i[auth_code redirect_uri])
         end
 
         extract_params(config)
