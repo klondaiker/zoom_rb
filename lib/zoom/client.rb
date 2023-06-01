@@ -83,8 +83,8 @@ module Zoom
 
     def need_refresh?
       return false unless auto_refresh_token
-      return true if token_store.access_token.nil?
-      return false if token_store.expires_at.nil?
+      return true if token_store.access_token.nil? || token_store.access_token.empty?
+      return false if token_store.expires_at.nil? || token_store.expires_at.empty?
 
       token_store.expires_at < Time.now
     end
